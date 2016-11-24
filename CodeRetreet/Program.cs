@@ -28,6 +28,11 @@ namespace CodeRetreet
         }
     }
 
+    /// <summary>
+    /// TDD的重要精神
+    /// 再設法通過第二個測試的同時，必須確保前面的測試維持綠燈
+    /// 一次只能出現一個紅燈，沒有紅燈之前不改prod code
+    /// </summary>
     [Microsoft.VisualStudio.TestTools.UnitTesting.TestClass]
     public class ProgramTest
     {
