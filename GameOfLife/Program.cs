@@ -1,51 +1,58 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameOfLife
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main()
         {
+
         }
 
-        internal Cell PutIn(Cell cell)
+        public string NextSecond(string cells)
         {
-            cell.isAlive = false;
-            return cell;
+            var result = "";
+            //當前細胞為存活狀態時，當周圍低於2個（不包含2個）存活細胞時， 該細胞變成死亡狀態。（模擬生命數量稀少）
+            for (int i = 0; i < cells.Length; i++)
+            {
+                var currentCell = cells.ToArray()[i].ToString();
+                if (currentCell == "1")
+                {
+                    var neightberCnt = 0;
+                    if (i > 1)
+                    {
+                        var preCell = cells.ToArray()[i - 1].ToString();
+                        if (preCell == "1")
+                        {
+                            neightberCnt += 1;
+                        }
+                    }
+                    if (i < cells.Length-1)
+                    {
+                        var nextCell = cells.ToArray()[i + 1].ToString();
+                        if (nextCell == "1")
+                        {
+                            neightberCnt += 1;
+                        }
+                    }
+                    if (neightberCnt < 2)
+                    {
+                        result += "0";
+                    }else if (neightberCnt>=2)
+                    {
+                        result += "1";
+                    }
+
+                }
+                else
+                {
+                    result += currentCell;
+                }
+
+            }
+
+            return result;
         }
-    }
-
-    [Microsoft.VisualStudio.TestTools.UnitTesting.TestClass]
-    public class GameOfLifeTests
-    {
-        [TestMethod]
-        public void SingleCellShouldDie()
-        {
-            var cell = new Cell(1, 1);
-            var target=new Program();
-
-            var result = target.PutIn(cell);
-
-            Assert.IsFalse(result.isAlive);
-        }   
-    }
-
-    internal class Cell
-    {
-        private int _x;
-        private int _y;
-
-        public Cell(int x, int y)
-        {
-            this._x = x;
-            this._y = y;
-        }
-
-        public bool isAlive { get; internal set; }
     }
 }

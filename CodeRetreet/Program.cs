@@ -36,19 +36,19 @@ namespace CodeRetreet
     [Microsoft.VisualStudio.TestTools.UnitTesting.TestClass]
     public class ProgramTest
     {
-        [TestMethod]
-        public void MyFirstTest()
-        {
-            var target = new Program();
+        //[TestMethod]
+        //public void MyFirstTest()
+        //{
+        //    var target = new Program();
 
-            Assert.IsTrue(target.CheckResult());
-        }
+        //    Assert.IsTrue(target.CheckResult());
+        //}
 
-        [TestMethod]
-        public void SecondTest_IsFalse()
-        {
-            var target = new Program();
-            Assert.IsFalse(target.CheckResult());
-        }
+        //[TestMethod]
+        //public void SecondTest_IsFalse()
+        //{
+        //    var target = new Program();
+        //    Assert.IsFalse(target.CheckResult());
+        //}
     }
 }
