@@ -34,13 +34,7 @@ namespace GameOfLife
 當前細胞為存活狀態時，當周圍低於2個（不包含2個）存活細胞時， 該細胞變成死亡狀態。（模擬生命數量稀少）
 當前細胞為存活狀態時，當周圍有2個或3個存活細胞時， 該細胞保持原樣。
 當前細胞為存活狀態時，當周圍有3個以上的存活細胞時，該細胞變成死亡狀態。（模擬生命數量過多）
-當前細胞為死亡狀態時，當周圍有3個存活細胞時，該細胞變成存活狀態。 （模擬繁殖）
-
-11001
-00000
-
-011110
-001100", ProgrammingLanguage.CSharp, ((string[])(null)));
+當前細胞為死亡狀態時，當周圍有3個存活細胞時，該細胞變成存活狀態。 （模擬繁殖）", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -75,38 +69,6 @@ namespace GameOfLife
         public virtual void ScenarioCleanup()
         {
             testRunner.CollectScenarioErrors();
-        }
-        
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("三個細胞，下一秒全死光")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "細胞的下一秒")]
-        public virtual void 三個細胞下一秒全死光()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("三個細胞，下一秒全死光", ((string[])(null)));
-#line 14
-this.ScenarioSetup(scenarioInfo);
-#line 15
-testRunner.When("細胞 11001", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 16
-testRunner.Then("顯示 00000", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("四個細胞，下一秒剩下兩個")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "細胞的下一秒")]
-        public virtual void 四個細胞下一秒剩下兩個()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("四個細胞，下一秒剩下兩個", ((string[])(null)));
-#line 18
-this.ScenarioSetup(scenarioInfo);
-#line 19
-testRunner.When("細胞 011110", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 20
-testRunner.Then("顯示 001100", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
         }
     }
 }

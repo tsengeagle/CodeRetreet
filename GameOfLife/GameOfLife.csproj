@@ -55,7 +55,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>細胞的下一秒.feature</DependentUpon>
     </Compile>
-    <Compile Include="細胞的下一秒Steps.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
