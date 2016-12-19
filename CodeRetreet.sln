@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PotentialAnagrams", "Potent
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BowlingGame", "BowlingGame\BowlingGame.csproj", "{F28FA923-0562-4BA3-A74F-8560EEA8ADD1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShiftScheduler", "ShiftScheduler\ShiftScheduler.csproj", "{4CA94789-BF3C-437D-A503-F429B9B10450}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{F28FA923-0562-4BA3-A74F-8560EEA8ADD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F28FA923-0562-4BA3-A74F-8560EEA8ADD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F28FA923-0562-4BA3-A74F-8560EEA8ADD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CA94789-BF3C-437D-A503-F429B9B10450}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CA94789-BF3C-437D-A503-F429B9B10450}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CA94789-BF3C-437D-A503-F429B9B10450}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CA94789-BF3C-437D-A503-F429B9B10450}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
