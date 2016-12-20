@@ -88,6 +88,111 @@ namespace ShiftScheduler
             var actualValid7 = target.SetSchedule(shift7);
             Assert.IsTrue(actualValid7);
         }
+
+        [TestMethod]
+        public void Shift_3dayOn_2dayOff_2dayOn_ShouldSuccess()
+        {
+            var target = new Scheduler();
+            var shift1 = new Shift() { Date = new DateTime(2017, 1, 1), Class = true };
+            var shift2 = new Shift() { Date = new DateTime(2017, 1, 2), Class = true };
+            var shift3 = new Shift() { Date = new DateTime(2017, 1, 3), Class = true };
+            var shift4 = new Shift() { Date = new DateTime(2017, 1, 4), Class = false };
+            var shift5 = new Shift() { Date = new DateTime(2017, 1, 5), Class = false };
+            var shift6 = new Shift() { Date = new DateTime(2017, 1, 6), Class = true };
+            var shift7 = new Shift() { Date = new DateTime(2017, 1, 7), Class = true };
+
+            target.SetSchedule(shift1);
+            target.SetSchedule(shift2);
+            target.SetSchedule(shift3);
+            target.SetSchedule(shift4);
+            target.SetSchedule(shift5);
+            var actualValid6 = target.SetSchedule(shift6);
+            Assert.IsTrue(actualValid6);
+            var actualValid7 = target.SetSchedule(shift7);
+            Assert.IsTrue(actualValid7);
+        }
+
+        [TestMethod]
+        public void Shift_5dayOn_2dayOff_Then_6dayOn_1dayOff_ShouldFail()
+        {
+            var shifts = new List<Shift>
+            {
+                new Shift() {Date = new DateTime(2017, 1, 1), Class = true},
+                new Shift() {Date = new DateTime(2017, 1, 2), Class = true},
+                new Shift() {Date = new DateTime(2017, 1, 3), Class = true},
+                new Shift() {Date = new DateTime(2017, 1, 4), Class = true},
+                new Shift() {Date = new DateTime(2017, 1, 5), Class = true},
+                new Shift() {Date = new DateTime(2017, 1, 6), Class = false},
+                new Shift() {Date = new DateTime(2017, 1, 7), Class = false},
+                new Shift() {Date = new DateTime(2017, 1, 8), Class = true},
+                new Shift() {Date = new DateTime(2017, 1, 9), Class = true},
+                new Shift() {Date = new DateTime(2017, 1, 10), Class = true},
+                new Shift() {Date = new DateTime(2017, 1, 11), Class = true},
+                new Shift() {Date = new DateTime(2017, 1, 12), Class = true},
+                new Shift() {Date = new DateTime(2017, 1, 13), Class = true}
+            };
+            var target = new Scheduler(shifts);
+            var shift = new Shift() { Date = new DateTime(2017, 1, 14), Class = false };
+
+            var actualValid = target.SetSchedule(shift);
+
+            Assert.IsFalse(actualValid);
+        }
+
+        [TestMethod]
+        public void Shift_3dayOn_2dayOff_2dayOn_then_5dayOn_ShouldFail()
+        {
+            var shifts = new List<Shift>
+            {
+                new Shift() {Date = new DateTime(2017, 1, 1), Class = true},
+                new Shift() {Date = new DateTime(2017, 1, 2), Class = true},
+                new Shift() {Date = new DateTime(2017, 1, 3), Class = true},
+                new Shift() {Date = new DateTime(2017, 1, 4), Class = false},
+                new Shift() {Date = new DateTime(2017, 1, 5), Class = false},
+                new Shift() {Date = new DateTime(2017, 1, 6), Class = true},
+                new Shift() {Date = new DateTime(2017, 1, 7), Class = true},
+                new Shift() {Date = new DateTime(2017, 1, 8), Class = true},
+                new Shift() {Date = new DateTime(2017, 1, 9), Class = true},
+                new Shift() {Date = new DateTime(2017, 1, 10), Class = true},
+                new Shift() {Date = new DateTime(2017, 1, 11), Class = true}
+            };
+            var target = new Scheduler(shifts);
+            var shift = new Shift() { Date = new DateTime(2017, 1, 12), Class = true };
+
+            var actualValid = target.SetSchedule(shift);
+
+            Assert.IsFalse(actualValid);
+        }
+
+        [TestMethod]
+        public void Shift_3dayOn_2dayOff_2dayOn_Then_5dayOn_2dayOff_ShouldFail_ShouldReturnMessage()
+        {
+            var shifts = new List<Shift>
+            {
+                new Shift() {Date = new DateTime(2017, 1, 1), Class = true},
+                new Shift() {Date = new DateTime(2017, 1, 2), Class = true},
+                new Shift() {Date = new DateTime(2017, 1, 3), Class = true},
+                new Shift() {Date = new DateTime(2017, 1, 4), Class = false},
+                new Shift() {Date = new DateTime(2017, 1, 5), Class = false},
+                new Shift() {Date = new DateTime(2017, 1, 6), Class = true},
+                new Shift() {Date = new DateTime(2017, 1, 7), Class = true},
+                new Shift() {Date = new DateTime(2017, 1, 8), Class = true},
+                new Shift() {Date = new DateTime(2017, 1, 9), Class = true},
+                new Shift() {Date = new DateTime(2017, 1, 10), Class = true},
+                new Shift() {Date = new DateTime(2017, 1, 11), Class = true},
+                new Shift() {Date = new DateTime(2017, 1, 12), Class = true},
+                new Shift() {Date = new DateTime(2017, 1, 13), Class = false},
+                new Shift() {Date = new DateTime(2017, 1, 14), Class = false},
+            };
+            var target = new Scheduler(shifts);
+
+            var actualValid = target.IsShiftsValid;
+            var actualMessage = target.Message;
+
+            Assert.IsFalse(actualValid);
+            Assert.AreEqual("每1周要有2個休息", actualMessage);
+        }
+        
     }
 
     public class Shift
@@ -98,24 +203,38 @@ namespace ShiftScheduler
 
     public class Scheduler
     {
-        private List<Shift> shifts;
+        private List<Shift> _shifts;
 
         public Scheduler()
         {
-            this.shifts = new List<Shift>();
+            this._shifts = new List<Shift>();
         }
+
+        public Scheduler(List<Shift> shifts)
+        {
+            IsShiftsValid = true;
+            _shifts = shifts;
+        }
+
+        public string Message { get; set; }
+        public bool IsShiftsValid { get; set; }
 
         public bool SetSchedule(Shift shift)
         {
-            shifts.Add(shift);
-            if (shifts.OrderByDescending(o => o.Date).Take(7).Where(w => w.Class == true).Count() > 5)
-            {
-                return false;
-            }
+            _shifts.Add(shift);
 
-
-            return true;
+            return CheckShiftsValid();
         }
 
+        public bool CheckShiftsValid()
+        {
+            if (_shifts.OrderByDescending(o => o.Date).Take(7).Where(w => w.Class == true).Count() > 5)
+            {
+                Message = "每1周要有2個休息";
+                IsShiftsValid = false;
+                return false;
+            }
+            return true;
+        }
     }
 }
