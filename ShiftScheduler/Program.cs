@@ -90,6 +90,54 @@ namespace ShiftScheduler
             Assert.IsFalse(actualStatus);
         }
 
+        [TestMethod]
+        public void ValidatorTest_5daysOn_2daysOff_ButNotOrderByDate_ShouldSuccess()
+        {
+            var shifts = MakeShifts5DaysOn2DaysOffButNotOrderByDate();
+
+            var target = new ScheduleValidator(shifts);
+            var actualStatus = target.CheckIfValid();
+
+            Assert.IsTrue(actualStatus);
+        }
+
+        private List<Shift> MakeShifts5DaysOn2DaysOffButNotOrderByDate()
+        {
+            return new List<Shift>()
+            {
+                new Shift() {Date=new DateTime(2017,1,31),Type="上班" },
+                new Shift() {Date=new DateTime(2017,1,2),Type="上班" },
+                new Shift() {Date=new DateTime(2017,1,1),Type="上班" },
+                new Shift() {Date=new DateTime(2017,1,3),Type="上班" },
+                new Shift() {Date=new DateTime(2017,1,4),Type="上班" },
+                new Shift() {Date=new DateTime(2017,1,5),Type="上班" },
+                new Shift() {Date=new DateTime(2017,1,6),Type="休假" },
+                new Shift() {Date=new DateTime(2017,1,7),Type="休假" },
+                new Shift() {Date=new DateTime(2017,1,8),Type="上班" },
+                new Shift() {Date=new DateTime(2017,1,9),Type="上班" },
+                new Shift() {Date=new DateTime(2017,1,10),Type="上班" },
+                new Shift() {Date=new DateTime(2017,1,11),Type="上班" },
+                new Shift() {Date=new DateTime(2017,1,12),Type="上班" },
+                new Shift() {Date=new DateTime(2017,1,13),Type="休假" },
+                new Shift() {Date=new DateTime(2017,1,14),Type="休假" },
+                new Shift() {Date=new DateTime(2017,1,15),Type="上班" },
+                new Shift() {Date=new DateTime(2017,1,16),Type="上班" },
+                new Shift() {Date=new DateTime(2017,1,17),Type="上班" },
+                new Shift() {Date=new DateTime(2017,1,18),Type="上班" },
+                new Shift() {Date=new DateTime(2017,1,19),Type="上班" },
+                new Shift() {Date=new DateTime(2017,1,20),Type="休假" },
+                new Shift() {Date=new DateTime(2017,1,21),Type="休假" },
+                new Shift() {Date=new DateTime(2017,1,22),Type="上班" },
+                new Shift() {Date=new DateTime(2017,1,23),Type="上班" },
+                new Shift() {Date=new DateTime(2017,1,24),Type="上班" },
+                new Shift() {Date=new DateTime(2017,1,25),Type="上班" },
+                new Shift() {Date=new DateTime(2017,1,26),Type="上班" },
+                new Shift() {Date=new DateTime(2017,1,27),Type="休假" },
+                new Shift() {Date=new DateTime(2017,1,28),Type="休假" },
+                new Shift() {Date=new DateTime(2017,1,29),Type="上班" },
+                new Shift() {Date=new DateTime(2017,1,30),Type="上班" },
+            };
+        }
         private List<Shift> MakeShifts5DaysOn2DaysOff31DaysButCrossMonth()
         {
             return new List<Shift>()
@@ -316,7 +364,7 @@ namespace ShiftScheduler
 
         public ScheduleValidator(List<Shift> shifts)
         {
-            _shifts = shifts;
+            _shifts = shifts.OrderBy(o => o.Date).ToList();
         }
 
         public bool CheckIfValid()
