@@ -12,7 +12,6 @@ namespace ShiftScheduler
     {
         static void Main(string[] args)
         {
-            ;
         }
     }
 
@@ -130,7 +129,7 @@ namespace ShiftScheduler
         public void ValidatorTest_Total_4DaysOff_4DaysBreak_ShouldSuccess()
         {
             var shifts = MakeShiftsTotal4DaysOff4DaysBreak();
-            var target=new ScheduleValidator(shifts);
+            var target = new ScheduleValidator(shifts);
 
             var actualStatus = target.CheckIfValid();
 
@@ -520,8 +519,8 @@ namespace ShiftScheduler
             var checkResult = true;
 
             var firstShiftDate = _shifts.First().Date;
-            var nextMonth = firstShiftDate.AddMonths(1);
-            var shouldShiftDays = (nextMonth - firstShiftDate).Days;
+
+            var shouldShiftDays = DateTime.DaysInMonth(firstShiftDate.Year,firstShiftDate.Month);
             if (_shifts.Count() != shouldShiftDays)
             {
                 checkResult = false;
